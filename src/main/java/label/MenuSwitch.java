@@ -1,6 +1,7 @@
 package label;
 
 import Frame.MenuStart;
+import panel.BottomPanel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -10,11 +11,12 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class MenuSwitch extends JLabel {
+    private  final BottomPanel bottomPanel = new BottomPanel();
     public MenuSwitch(){
         MenuStart menuStart = new MenuStart();
         Game game = new Game();
 
-        this.setText("Best game ever!");
+        this.setText("THE BEST FROG GAME");
         this.setSize(menuStart.getSize());
         this.setHorizontalAlignment(JLabel.CENTER);
         this.setVerticalAlignment(JLabel.TOP);
@@ -28,12 +30,23 @@ public class MenuSwitch extends JLabel {
         start.setBackground(new Color(94, 122, 61));
         start.addActionListener(e -> {
 
+            bottomPanel.setPreferredSize(new Dimension(600,100));
+            menuStart.setLayout(new BorderLayout());
+
             this.setVisible(false);
-            menuStart.add(game);
+            menuStart.add(game,BorderLayout.CENTER);
+            menuStart.add(bottomPanel,BorderLayout.SOUTH);
+
+            bottomPanel.setVisible(true);
             game.setVisible(true);
         });
 
+        bottomPanel.btn.addActionListener(e -> {
+                this.setVisible(true);
+                game.setVisible(false);
+                bottomPanel.setVisible(false);
 
+        });
 
         JButton exit = new JButton();
         exit.setText("Exit");
