@@ -1,12 +1,15 @@
 package ActionButtons;
 
+import label.MenuSwitch;
+import panel.BottomPanel;
+
 import javax.swing.*;
 import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class BombBtn extends JButton {
-    private int hearts;
+    private int hearts = 5;
 
     public int getHearts() {
         return hearts;
@@ -27,21 +30,26 @@ public class BombBtn extends JButton {
 
         AtomicReference<Random> random = new AtomicReference<>(new Random());
 
-        int maxWidth = 501; // Górny zakres szerokości (maxWidth - 1)
-        int maxHeight = 401; // Górny zakres wysokości (maxHeight - 1)
 
-        int x = random.get().nextInt(maxWidth); // Losowa liczba od 0 do maxWidth - 1
-        int y = random.get().nextInt(maxHeight); // Losowa liczba od 0 do maxHeight - 1
+        int maxWidth = 521;
+        int maxHeight = 411;
+
+        int x = random.get().nextInt(maxWidth);
+        int y = random.get().nextInt(maxHeight);
 
         this.setBounds(x, y, imageIcon.getIconWidth(), imageIcon.getIconHeight());
 
-        hearts=3;
         this.addActionListener(e -> {
             hearts--;
             this.setVisible(false);
+            System.out.println("Hearts:" + hearts);
 
+            BottomPanel bottomPanel = MenuSwitch.bottomPanel;
 
-            System.out.println(hearts);
+            JPanel rightPanel = bottomPanel.getRightPanel();
+            rightPanel.remove(hearts);
+            System.out.println(bottomPanel.getRightPanel().getComponentCount());
+
 
             random.set(new Random());
             int newX = random.get().nextInt(maxWidth); // Wygenerowanie nowej losowej liczby dla x
@@ -55,16 +63,13 @@ public class BombBtn extends JButton {
             });
             timer.setRepeats(false);
             timer.start();
-            if (hearts==0){
-//                Game game = new Game();
-//                game.setVisible(false);
-//                MenuSwitch menuSwitch = new MenuSwitch();
-//                menuSwitch.setVisible(false);
+            if (hearts == 0) {
                 JOptionPane.showMessageDialog(null, "Przegrałeś", "Noob", JOptionPane.INFORMATION_MESSAGE);
-
+                hearts = 5;
 
             }
         });
 
     }
+
 }
