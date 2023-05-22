@@ -12,7 +12,7 @@ public class MenuStart extends JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/appimg.png")));
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/frog.png")));
         this.getContentPane().setBackground(new Color(78, 84, 94));
 
         this.setVisible(true);

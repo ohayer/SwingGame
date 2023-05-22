@@ -28,6 +28,7 @@ public class MenuSwitch extends JLabel {
         start.setBounds(240,250,120,60);
         start.setForeground(Color.BLACK);
         start.setBackground(new Color(94, 122, 61));
+        start.setFocusPainted(false);
         start.addActionListener(e -> {
 
             bottomPanel.setPreferredSize(new Dimension(600,100));
