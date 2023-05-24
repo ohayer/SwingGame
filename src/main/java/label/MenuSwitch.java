@@ -14,10 +14,11 @@ import java.awt.*;
 
 public class MenuSwitch extends JLabel {
     public static BottomPanel bottomPanel = new BottomPanel();
+    public static JButton start = new JButton();
+    public static  Game game = new Game();
 
     public MenuSwitch() {
         MenuStart menuStart = new MenuStart();
-        Game game = new Game();
 
         this.setText("THE BEST FROG GAME");
         this.setSize(menuStart.getSize());
@@ -25,7 +26,6 @@ public class MenuSwitch extends JLabel {
         this.setVerticalAlignment(JLabel.TOP);
         this.setFont(new Font("Arial", Font.BOLD, 50));
 
-        JButton start = new JButton();
         start.setText("Start");
         start.setBounds(240, 250, 120, 60);
         start.setForeground(Color.BLACK);
@@ -42,6 +42,7 @@ public class MenuSwitch extends JLabel {
 
             bottomPanel.setVisible(true);
             game.setVisible(true);
+
         });
 
         bottomPanel.btn.addActionListener(e -> {
@@ -52,12 +53,10 @@ public class MenuSwitch extends JLabel {
             BombBtn bomb = Game.bomb;
             bomb.setHearts(5);
             frog.setPoints(0);
-            JPanel rightPanel = bottomPanel.getRightPanel();
-            rightPanel.removeAll();
-            for (int i = 0; i < 5; i++) {
-                JLabel heartLabel = new JLabel(bottomPanel.heart);
-                rightPanel.add(heartLabel);
-            }
+            bottomPanel.setHeatsToFive(bottomPanel,bottomPanel.getRightPanel());
+            bottomPanel = new BottomPanel();
+            setBottomPanel(bottomPanel);
+
         });
 
         JButton exit = new JButton();
@@ -79,5 +78,9 @@ public class MenuSwitch extends JLabel {
         this.add(exit);
         menuStart.add(this);
 
+    }
+
+    public static void setBottomPanel(BottomPanel bottomPanel) {
+        MenuSwitch.bottomPanel = bottomPanel;
     }
 }

@@ -18,9 +18,9 @@ public class FrogBtn extends JButton {
     public int getPoints() {
         return points;
     }
-
     public FrogBtn() {
         ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/icons/frog.png")));
+        BottomPanel bottomPanel = MenuSwitch.bottomPanel;
 
         this.setIcon(imageIcon);
         this.setContentAreaFilled(false);
@@ -42,7 +42,6 @@ public class FrogBtn extends JButton {
             points++;
             this.setVisible(false);
 
-            BottomPanel bottomPanel = MenuSwitch.bottomPanel;
             bottomPanel.getPointsLabel().setText(String.valueOf(points));
 
             System.out.println("Points:" + points);
@@ -59,6 +58,32 @@ public class FrogBtn extends JButton {
             timer.start();
 
         });
+//        if (MenuSwitch.game.isVisible()) {
+//            Timer timer = new Timer(2500, event -> {
+//                this.setVisible(false);
+//                System.out.println("Xd");
+//            });
+//            timer.setRepeats(true);
+//            timer.start();
+//            Timer newTimer = new Timer(2510, event -> {
+//                random.set(new Random());
+//                int newX = random.get().nextInt(maxWidth);
+//                int newY = random.get().nextInt(maxHeight);
+//
+//                this.setBounds(newX, newY, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+//
+//                //  System.out.println(Game.bomb.getHearts());
+//                Game.bomb.setHearts(Game.bomb.getHearts()-1);
+//                JPanel rightPanel = bottomPanel.getRightPanel();
+//                rightPanel.remove(Game.bomb.getHearts());
+//
+//                this.setVisible(true);
+//                Game.messageAfterLose();
+//            });
+//            newTimer.setRepeats(true);
+//            newTimer.start();
+//        }
+
 
     }
 }

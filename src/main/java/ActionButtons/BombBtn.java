@@ -1,5 +1,6 @@
 package ActionButtons;
 
+import label.Game;
 import label.MenuSwitch;
 import panel.BottomPanel;
 
@@ -19,8 +20,8 @@ public class BombBtn extends JButton {
         this.hearts = hearts;
     }
 
+    public ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/icons/bomb.png")));
     public BombBtn() {
-        ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/icons/bomb.png")));
 
         this.setIcon(imageIcon);
         this.setContentAreaFilled(false);
@@ -48,8 +49,6 @@ public class BombBtn extends JButton {
 
             JPanel rightPanel = bottomPanel.getRightPanel();
             rightPanel.remove(hearts);
-            System.out.println(bottomPanel.getRightPanel().getComponentCount());
-
 
             random.set(new Random());
             int newX = random.get().nextInt(maxWidth); // Wygenerowanie nowej losowej liczby dla x
@@ -57,19 +56,13 @@ public class BombBtn extends JButton {
 
             this.setBounds(newX, newY, imageIcon.getIconWidth(), imageIcon.getIconHeight());
 
-
             Timer timer = new Timer(3000, event -> {
                 this.setVisible(true);
             });
             timer.setRepeats(false);
             timer.start();
-            if (hearts == 0) {
-                JOptionPane.showMessageDialog(null, "Przegrałeś", "Noob", JOptionPane.INFORMATION_MESSAGE);
-                hearts = 5;
-
-            }
+            Game.messageAfterLose();
         });
-
     }
-
 }
+

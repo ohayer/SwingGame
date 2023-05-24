@@ -1,8 +1,5 @@
 package panel;
 
-import ActionButtons.BombBtn;
-import label.Game;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
@@ -15,12 +12,6 @@ public class BottomPanel extends JPanel {
     public ImageIcon heart = new ImageIcon(Objects.requireNonNull(getClass().getResource("/icons/heart.png")));
 
     public BottomPanel() {
-        BombBtn bomb = Game.bomb;
-
-        int live = bomb.getHearts();
-
-        System.out.println(live);
-
         this.setBackground(color);
         this.setPreferredSize(new Dimension());
 
@@ -33,13 +24,7 @@ public class BottomPanel extends JPanel {
         btn.setFocusPainted(false);
         btn.setVisible(true);
 
-
-        for (int i = 0; i < live; i++) {
-            JLabel heartLabel = new JLabel(heart);
-            rightPanel.add(heartLabel);
-        }
-        rightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        rightPanel.setBackground(color);
+        this.setHeatsToFive(this,rightPanel);
 
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -69,6 +54,17 @@ public class BottomPanel extends JPanel {
 
     public JPanel getRightPanel() {
         return rightPanel;
+    }
+
+    public void setHeatsToFive(BottomPanel bottomPanel, JPanel rightPanels){
+        rightPanels.removeAll();
+        for (int i = 0; i < 5; i++) {
+            JLabel heartLabel = new JLabel(heart);
+             rightPanels = bottomPanel.getRightPanel();
+                rightPanels.add(heartLabel);
+        }
+        rightPanels.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        rightPanels.setBackground(color);
     }
 
 }
