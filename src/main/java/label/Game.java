@@ -2,16 +2,17 @@ package label;
 
 import ActionButtons.BombBtn;
 import ActionButtons.FrogBtn;
+import ActionButtons.XYRandom;
 import panel.BottomPanel;
 
 import javax.swing.*;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class Game extends JLabel {
     public static FrogBtn frog = new FrogBtn();
     public static BombBtn bomb = new BombBtn();
-    private Timer timer;
+    private final Timer bombTimer;
+    private Timer frogTimer;
+
 
     public Game() {
         this.setSize(600, 500);
@@ -20,23 +21,38 @@ public class Game extends JLabel {
         this.add(bomb);
         this.add(frog);
 
-        AtomicReference<Random> random = new AtomicReference<>(new Random());
+        frog.addActionListener(e -> {
+            frogTimer.stop();
+            frogTimer.setDelay(2200);
+            frogTimer.stop();
+        });
 
-        timer = new Timer(1000, event -> {
+
+        bombTimer = new Timer(2500, event -> {
             System.out.println("znikam");
-
-            int maxWidth = 521;
-            int maxHeight = 411;
-            int newX = random.get().nextInt(maxWidth);
-            int newY = random.get().nextInt(maxHeight);
-
-            bomb.setBounds(newX, newY, bomb.imageIcon.getIconWidth(), bomb.imageIcon.getIconHeight());
+            XYRandom random = new XYRandom();
+            random.setBoundOf_Btn(bomb, bomb.imageIcon);
             bomb.setVisible(true);
         });
-        timer.setRepeats(true);
+        bombTimer.setRepeats(true);
+        frogTimer = new Timer(2200, e -> {
+            XYRandom random = new XYRandom();
+            random.setBoundOf_Btn(frog, frog.imageIcon);
+            bomb.setHearts(bomb.getHearts() - 1);
+
+            BottomPanel bottomPanel = MenuSwitch.bottomPanel;
+            JPanel rightPanel = bottomPanel.getRightPanel();
+            rightPanel.remove(bomb.getHearts());
+            rightPanel.revalidate();
+            rightPanel.repaint();
+            System.out.println(rightPanel.getComponentCount());
+            messageAfterLose();
+        });
+        frogTimer.setRepeats(true);
 
     }
-    public static void messageAfterLose(){
+
+    public static void messageAfterLose() {
         if (bomb.getHearts() == 0) {
             int result = JOptionPane.showOptionDialog(null, "Don't worry. Let's try again", "Defeated by Frog",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"OK"}, "OK");
@@ -47,13 +63,16 @@ public class Game extends JLabel {
             }
         }
     }
+
     @Override
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (visible) {
-            timer.start();
+            bombTimer.start();
+            frogTimer.start();
         } else {
-            timer.stop();
+            bombTimer.stop();
+            frogTimer.stop();
         }
     }
 }

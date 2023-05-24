@@ -6,8 +6,6 @@ import panel.BottomPanel;
 
 import javax.swing.*;
 import java.util.Objects;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class BombBtn extends JButton {
     private int hearts = 5;
@@ -29,16 +27,9 @@ public class BombBtn extends JButton {
         this.setFocusPainted(false);
         this.setVisible(true);
 
-        AtomicReference<Random> random = new AtomicReference<>(new Random());
+        XYRandom random = new XYRandom();
+        random.setBoundOf_Btn(this,imageIcon);
 
-
-        int maxWidth = 521;
-        int maxHeight = 411;
-
-        int x = random.get().nextInt(maxWidth);
-        int y = random.get().nextInt(maxHeight);
-
-        this.setBounds(x, y, imageIcon.getIconWidth(), imageIcon.getIconHeight());
 
         this.addActionListener(e -> {
             hearts--;
@@ -49,12 +40,7 @@ public class BombBtn extends JButton {
 
             JPanel rightPanel = bottomPanel.getRightPanel();
             rightPanel.remove(hearts);
-
-            random.set(new Random());
-            int newX = random.get().nextInt(maxWidth); // Wygenerowanie nowej losowej liczby dla x
-            int newY = random.get().nextInt(maxHeight); // Wygenerowanie nowej losowej liczby dla y
-
-            this.setBounds(newX, newY, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+            random.setBoundOf_Btn(this,imageIcon);
 
             Timer timer = new Timer(3000, event -> {
                 this.setVisible(true);
