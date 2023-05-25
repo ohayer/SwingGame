@@ -7,16 +7,9 @@ import javax.swing.*;
 import java.util.Objects;
 
 public class FrogBtn extends JButton {
+    private int hearts = 5;
     private int points;
     public ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/icons/frog.png")));
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
     public FrogBtn() {
         BottomPanel bottomPanel = MenuSwitch.bottomPanel;
 
@@ -31,20 +24,26 @@ public class FrogBtn extends JButton {
 
         this.addActionListener(e -> {
             points++;
-            this.setVisible(false);
-
             bottomPanel.getPointsLabel().setText(String.valueOf(points));
 
             System.out.println("Points:" + points);
 
             random.setBoundOf_Btn(this, imageIcon);
-
-            Timer timer = new Timer(2000, event -> {
-                this.setVisible(true);
-            });
-            timer.setRepeats(false);
-            timer.start();
-
         });
     }
+    public int getHearts() {
+        return hearts;
+    }
+
+    public void setHearts(int hearts) {
+        this.hearts = hearts;
+    }
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
 }

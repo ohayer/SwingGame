@@ -1,6 +1,5 @@
 package label;
 
-import ActionButtons.BombBtn;
 import ActionButtons.FrogBtn;
 import Frame.MenuStart;
 import panel.BottomPanel;
@@ -32,9 +31,9 @@ public class MenuSwitch extends JLabel {
         start.setBackground(new Color(94, 122, 61));
         start.setFocusPainted(false);
         start.addActionListener(e -> {
-
             bottomPanel.setPreferredSize(new Dimension(600, 100));
             menuStart.setLayout(new BorderLayout());
+            game = new Game();
 
             this.setVisible(false);
             menuStart.add(game, BorderLayout.CENTER);
@@ -49,14 +48,11 @@ public class MenuSwitch extends JLabel {
             this.setVisible(true);
             game.setVisible(false);
             bottomPanel.setVisible(false);
+
             FrogBtn frog = Game.frog;
-            BombBtn bomb = Game.bomb;
-            bomb.setHearts(5);
+            frog.setHearts(5);
             frog.setPoints(0);
             bottomPanel.setHeatsToFive(bottomPanel,bottomPanel.getRightPanel());
-            bottomPanel = new BottomPanel();
-            setBottomPanel(bottomPanel);
-
         });
 
         JButton exit = new JButton();
@@ -78,9 +74,5 @@ public class MenuSwitch extends JLabel {
         this.add(exit);
         menuStart.add(this);
 
-    }
-
-    public static void setBottomPanel(BottomPanel bottomPanel) {
-        MenuSwitch.bottomPanel = bottomPanel;
     }
 }
