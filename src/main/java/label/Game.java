@@ -12,7 +12,6 @@ public class Game extends JLabel {
     public static BombBtn bomb = new BombBtn();
     private final Timer bombTimer;
     public Timer frogTimer, timer;
-    private final BottomPanel bottomPanel = MenuSwitch.bottomPanel;
 
 
     public Game() {
@@ -23,15 +22,13 @@ public class Game extends JLabel {
         this.add(frog);
         frog.addActionListener(a -> {
             frogTimer.stop();
-            frogTimer.setDelay(frogTimer.getDelay()-1);
+            frogTimer.setDelay(frogTimer.getDelay() - 1);
             frogTimer.start();
         });
-        bomb.addActionListener(a ->{
-           frog.setHearts(frog.getHearts()-1);
-            JPanel rightPanel = bottomPanel.getRightPanel();
-            rightPanel.remove(Game.frog.getHearts());
+        bomb.addActionListener(a -> {
+            removeHeartFromPanel();
+            messageAfterLose();
         });
-
         bombTimer = new Timer(2500, event -> {
             XYRandom random = new XYRandom();
             random.setBoundOf_Btn(bomb, bomb.imageIcon);
@@ -39,10 +36,10 @@ public class Game extends JLabel {
             if (frog.getPoints() % 25 == 0 && frog.getPoints() > 0) {
                 System.out.println("bomb" + frog.getPoints() / 10);
                 BombBtn newBomb = new BombBtn();
-                Timer timer = new Timer(2500, e -> random.setBoundOf_Btn(newBomb, newBomb.imageIcon));
+                timer = new Timer(2500, e -> random.setBoundOf_Btn(newBomb, newBomb.imageIcon));
                 newBomb.addActionListener(b -> {
-                    frog.setHearts(frog.getHearts() - 1);
                     removeHeartFromPanel();
+                    messageAfterLose();
                 });
                 timer.setRepeats(true);
                 timer.start();
@@ -54,7 +51,6 @@ public class Game extends JLabel {
         frogTimer = new Timer(2200, e -> {
             XYRandom random = new XYRandom();
             random.setBoundOf_Btn(frog, frog.imageIcon);
-            frog.setHearts(frog.getHearts() - 1);
             removeHeartFromPanel();
             System.out.println(frogTimer.getDelay());
             messageAfterLose();
@@ -65,7 +61,7 @@ public class Game extends JLabel {
     public static void messageAfterLose() {
         if (frog.getHearts() == 0) {
             int result = JOptionPane.showOptionDialog(null, "Don't worry. Let's try again", "Defeated by Frog",
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"OK"}, "OK");
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"TRY AGAIN"}, "OK");
             frog.setHearts(5);
             if (result == JOptionPane.OK_OPTION) {
                 BottomPanel bottomPanel = MenuSwitch.bottomPanel;
@@ -73,7 +69,9 @@ public class Game extends JLabel {
             }
         }
     }
+
     private void removeHeartFromPanel() {
+        frog.setHearts(frog.getHearts() - 1);
         BottomPanel bottomPanel = MenuSwitch.bottomPanel;
         JPanel rightPanel = bottomPanel.getRightPanel();
         rightPanel.remove(frog.getHearts());
@@ -94,7 +92,7 @@ public class Game extends JLabel {
                 frogTimer.stop();
                 timer.stop();
             }
-        }catch (NullPointerException ignored) {
+        } catch (NullPointerException ignored) {
         }
     }
 }

@@ -14,7 +14,7 @@ import java.awt.*;
 public class MenuSwitch extends JLabel {
     public static BottomPanel bottomPanel = new BottomPanel();
     public static JButton start = new JButton();
-    public static  Game game = new Game();
+    public static  Game game;
 
     public MenuSwitch() {
         MenuStart menuStart = new MenuStart();
@@ -34,7 +34,6 @@ public class MenuSwitch extends JLabel {
             bottomPanel.setPreferredSize(new Dimension(600, 100));
             menuStart.setLayout(new BorderLayout());
             game = new Game();
-
             this.setVisible(false);
             menuStart.add(game, BorderLayout.CENTER);
             menuStart.add(bottomPanel, BorderLayout.SOUTH);

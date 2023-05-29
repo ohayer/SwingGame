@@ -20,7 +20,6 @@ public class BombBtn extends JButton {
 
 
         this.addActionListener(e -> {
-            this.setVisible(false);
             System.out.println("Hearts:" + Game.frog.getHearts());
             random.setBoundOf_Btn(this,imageIcon);
         });
