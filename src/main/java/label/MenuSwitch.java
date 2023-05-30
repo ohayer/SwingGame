@@ -1,5 +1,6 @@
 package label;
 
+import ActionButtons.BombBtn;
 import ActionButtons.FrogBtn;
 import Frame.MenuStart;
 import entity.User;
@@ -30,7 +31,7 @@ public class MenuSwitch extends JLabel {
 
 
         User user = TypeUsername.user;
-        additionalText.setText("<html><div style='text-align: center;'>Hello " + user.getUsername() + "<br>Your max points is " +user.getMaxPoints() + "</div></html>");
+        additionalText.setText("<html><div style='text-align: center;'>Hello " + user.getUsername() + "<br>Your max points is " + user.getMaxPoints() + "</div></html>");
         additionalText.setHorizontalAlignment(SwingConstants.CENTER);
         additionalText.setSize(600, 350);
         additionalText.setVerticalAlignment(JLabel.CENTER);
@@ -50,8 +51,11 @@ public class MenuSwitch extends JLabel {
         start.addActionListener(e -> {
             bottomPanel.setPreferredSize(new Dimension(600, 100));
             menuStart.setLayout(new BorderLayout());
-            game = new Game();
             this.setVisible(false);
+            Game.frog = new FrogBtn();
+            Game.bomb = new BombBtn();
+            game = new Game();
+            Game.frog.setPoints(0);
             menuStart.add(game, BorderLayout.CENTER);
             menuStart.add(bottomPanel, BorderLayout.SOUTH);
 
@@ -67,7 +71,7 @@ public class MenuSwitch extends JLabel {
 
             FrogBtn frog = Game.frog;
             frog.setHearts(5);
-            game.setBiggestValuePoints();
+            Game.setBiggestValuePoints();
             frog.setPoints(0);
             bottomPanel.setHeatsToFive(bottomPanel, bottomPanel.getRightPanel());
         });
@@ -94,6 +98,5 @@ public class MenuSwitch extends JLabel {
         this.add(start);
         this.add(exit);
         menuStart.add(this);
-
     }
 }

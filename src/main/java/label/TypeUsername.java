@@ -9,9 +9,10 @@ import java.awt.*;
 
 public class TypeUsername extends JLabel {
     public static UserRepository userRepo = new UserRepository();
-    private JButton button = new JButton("▶");
+    private final JButton button = new JButton("▶");
     private MenuStart menuStart = new MenuStart();
     public static User user;
+    private final JTextField textField = new JTextField();
 
     public TypeUsername() {
 
@@ -22,9 +23,11 @@ public class TypeUsername extends JLabel {
         this.setVerticalAlignment(JLabel.TOP);
         this.setVisible(true);
 
-        JTextField textField = new JTextField();
         textField.setBounds(100, 80, 150, 30);
-
+        textField.setBackground(new Color(179, 186, 189));
+        textField.setForeground(Color.black);
+        textField.setFont(new Font("Arial", Font.BOLD, 20));
+        textField.setBorder(null);
 
         button.setForeground(Color.BLACK);
         button.setBorderPainted(false);
@@ -50,6 +53,7 @@ public class TypeUsername extends JLabel {
                 new MenuSwitch(menuStart);
             }
         });
+
 
         this.add(textField);
         this.add(button);

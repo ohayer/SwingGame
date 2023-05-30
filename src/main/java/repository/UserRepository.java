@@ -14,7 +14,6 @@ public class UserRepository {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         em.merge(user);
-        System.out.println(user.getId());
         transaction.commit();
     }
 
