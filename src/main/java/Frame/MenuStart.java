@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class MenuStart extends JFrame {
     public MenuStart() {
-        this.setSize(600, 600);
+        this.setSize(600, 200);
         this.setTitle("Catch the Frog");
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
         this.setLayout(null);

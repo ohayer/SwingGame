@@ -14,13 +14,12 @@ import java.awt.*;
 public class MenuSwitch extends JLabel {
     public static BottomPanel bottomPanel = new BottomPanel();
     public static JButton start = new JButton();
-    public static  Game game;
+    public static Game game;
 
-    public MenuSwitch() {
-        MenuStart menuStart = new MenuStart();
+    public MenuSwitch(MenuStart menuStart) {
 
         this.setText("THE BEST FROG GAME");
-        this.setSize(menuStart.getSize());
+        this.setSize(600,600);
         this.setHorizontalAlignment(JLabel.CENTER);
         this.setVerticalAlignment(JLabel.TOP);
         this.setFont(new Font("Arial", Font.BOLD, 50));
@@ -51,7 +50,7 @@ public class MenuSwitch extends JLabel {
             FrogBtn frog = Game.frog;
             frog.setHearts(5);
             frog.setPoints(0);
-            bottomPanel.setHeatsToFive(bottomPanel,bottomPanel.getRightPanel());
+            bottomPanel.setHeatsToFive(bottomPanel, bottomPanel.getRightPanel());
         });
 
         JButton exit = new JButton();

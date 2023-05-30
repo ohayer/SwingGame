@@ -32,7 +32,6 @@ public class Game extends JLabel {
         bombTimer = new Timer(2500, event -> {
             XYRandom random = new XYRandom();
             random.setBoundOf_Btn(bomb, bomb.imageIcon);
-            messageAfterLose();
             if (frog.getPoints() % 25 == 0 && frog.getPoints() > 0) {
                 System.out.println("bomb" + frog.getPoints() / 10);
                 BombBtn newBomb = new BombBtn();
