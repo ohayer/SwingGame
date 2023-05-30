@@ -24,7 +24,7 @@ public class BottomPanel extends JPanel {
         btn.setFocusPainted(false);
         btn.setVisible(true);
 
-        this.setHeatsToFive(this,rightPanel);
+        this.setHeatsToFive(this, rightPanel);
 
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -56,12 +56,12 @@ public class BottomPanel extends JPanel {
         return rightPanel;
     }
 
-    public void setHeatsToFive(BottomPanel bottomPanel, JPanel rightPanels){
+    public void setHeatsToFive(BottomPanel bottomPanel, JPanel rightPanels) {
         rightPanels.removeAll();
         for (int i = 0; i < 5; i++) {
             JLabel heartLabel = new JLabel(heart);
-             rightPanels = bottomPanel.getRightPanel();
-                rightPanels.add(heartLabel);
+            rightPanels = bottomPanel.getRightPanel();
+            rightPanels.add(heartLabel);
         }
         rightPanels.setLayout(new FlowLayout(FlowLayout.RIGHT));
         rightPanels.setBackground(color);

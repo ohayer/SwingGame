@@ -10,6 +10,7 @@ public class FrogBtn extends JButton {
     private int hearts = 5;
     private int points;
     public ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/icons/frog.png")));
+
     public FrogBtn() {
         BottomPanel bottomPanel = MenuSwitch.bottomPanel;
 
@@ -31,6 +32,7 @@ public class FrogBtn extends JButton {
             random.setBoundOf_Btn(this, imageIcon);
         });
     }
+
     public int getHearts() {
         return hearts;
     }
@@ -38,6 +40,7 @@ public class FrogBtn extends JButton {
     public void setHearts(int hearts) {
         this.hearts = hearts;
     }
+
     public void setPoints(int points) {
         this.points = points;
     }

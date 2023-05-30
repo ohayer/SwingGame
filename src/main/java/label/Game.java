@@ -3,7 +3,9 @@ package label;
 import ActionButtons.BombBtn;
 import ActionButtons.FrogBtn;
 import ActionButtons.XYRandom;
+import entity.User;
 import panel.BottomPanel;
+import repository.UserRepository;
 
 import javax.swing.*;
 
@@ -11,7 +13,7 @@ public class Game extends JLabel {
     public static FrogBtn frog = new FrogBtn();
     public static BombBtn bomb = new BombBtn();
     private final Timer bombTimer;
-    public Timer frogTimer, timer;
+    public static Timer frogTimer, timer;
 
 
     public Game() {
@@ -27,6 +29,7 @@ public class Game extends JLabel {
         });
         bomb.addActionListener(a -> {
             removeHeartFromPanel();
+            setBiggestValuePoints();
             messageAfterLose();
         });
         bombTimer = new Timer(2500, event -> {
@@ -37,6 +40,7 @@ public class Game extends JLabel {
                 BombBtn newBomb = new BombBtn();
                 timer = new Timer(2500, e -> random.setBoundOf_Btn(newBomb, newBomb.imageIcon));
                 newBomb.addActionListener(b -> {
+                    setBiggestValuePoints();
                     removeHeartFromPanel();
                     messageAfterLose();
                 });
@@ -52,6 +56,7 @@ public class Game extends JLabel {
             random.setBoundOf_Btn(frog, frog.imageIcon);
             removeHeartFromPanel();
             System.out.println(frogTimer.getDelay());
+            setBiggestValuePoints();
             messageAfterLose();
         });
         frogTimer.setRepeats(true);
@@ -62,6 +67,7 @@ public class Game extends JLabel {
             int result = JOptionPane.showOptionDialog(null, "Don't worry. Let's try again", "Defeated by Frog",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"TRY AGAIN"}, "OK");
             frog.setHearts(5);
+            frogTimer.stop();
             if (result == JOptionPane.OK_OPTION) {
                 BottomPanel bottomPanel = MenuSwitch.bottomPanel;
                 bottomPanel.btn.doClick();
@@ -92,6 +98,17 @@ public class Game extends JLabel {
                 timer.stop();
             }
         } catch (NullPointerException ignored) {
+        }
+    }
+
+    public void setBiggestValuePoints() {
+        User user = TypeUsername.user;
+        if (frog.getPoints() > user.getMaxPoints()) {
+            UserRepository repository = TypeUsername.userRepo;
+            repository.updatePoints(user, frog.getPoints());
+            System.out.println("_______________________NEWPoints___________________");
+            System.out.println(user.getMaxPoints());
+            MenuSwitch.additionalText.setText("<html><div style='text-align: center;'>Hello " + user.getUsername() + "<br>Your max points is " + user.getMaxPoints() + "</div></html>");
         }
     }
 }
